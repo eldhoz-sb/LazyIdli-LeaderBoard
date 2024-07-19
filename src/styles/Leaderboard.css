@@ -145,6 +145,19 @@ color: #FFFFFF;
 
 
 @media (max-width: 600px) {
+  .leaderboard-item{
+    font-size: 14px;
+  }
+
+  .leaderboard-list {
+    max-height: 440px;
+}
+
+
+  .item-group {
+    gap: 15px;
+}
+
   .most-recent-entry {
     padding: 10px 20px;
     border-radius: 0px;
