@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface Score {
   username: string;
-  time: string; // MM:SS:MS format
+  time: string; 
 }
 
 interface LeaderboardState {
@@ -43,7 +43,7 @@ const initialState: LeaderboardState = {
     const [bMin, bSec, bMs] = b.time.split(':').map(Number);
     return aMin - bMin || aSec - bSec || aMs - bMs;
   }),
-  mostRecentEntry: dummyData.length > 0 ? dummyData[0] : null, // Initialize with the first entry in dummyData
+  mostRecentEntry: dummyData.length > 0 ? dummyData[0] : null,
 };
 
 const leaderboardSlice = createSlice({
