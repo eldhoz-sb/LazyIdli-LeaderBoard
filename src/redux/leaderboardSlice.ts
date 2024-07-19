@@ -1,0 +1,72 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+interface Score {
+  username: string;
+  time: string; // MM:SS:MS format
+}
+
+interface LeaderboardState {
+  scores: Score[];
+  mostRecentEntry: Score | null;
+}
+
+const dummyData: Score[] = [
+  { username: 'Arjun Sharma', time: '02:30:150' },
+  { username: 'Riya Verma', time: '01:45:900' },
+  { username: 'Vikram Singh', time: '03:15:250' },
+  { username: 'Priya Kumar', time: '00:55:700' },
+  { username: 'Rohan Patel', time: '02:05:450' },
+  { username: 'Sneha Rao', time: '01:35:600' },
+  { username: 'Amit Joshi', time: '00:50:300' },
+  { username: 'Kavya Iyer', time: '02:20:500' },
+  { username: 'Anil Mehta', time: '01:10:850' },
+  { username: 'Meena Desai', time: '02:55:100' },
+  { username: 'Gaurav Nair', time: '01:25:750' },
+  { username: 'Divya Reddy', time: '03:00:200' },
+  { username: 'Suresh Menon', time: '01:40:550' },
+  { username: 'Anita Chawla', time: '02:10:650' },
+  { username: 'Raj Gupta', time: '00:45:950' },
+  { username: 'Arjun Sharma', time: '02:30:150' },
+  { username: 'Riya Verma', time: '01:45:900' },
+  { username: 'Vikram Singh', time: '03:15:250' },
+  { username: 'Priya Kumar', time: '00:55:700' },
+  { username: 'Rohan Patel', time: '02:05:450' },
+  { username: 'Sneha Rao', time: '01:35:600' },
+  { username: 'Amit Joshi', time: '00:50:300' },
+  { username: 'Kavya Iyer', time: '02:20:500' },
+  { username: 'Anil Mehta', time: '01:10:850' },
+  { username: 'Meena Desai', time: '02:55:100' },
+  { username: 'Gaurav Nair', time: '01:25:750' },
+  { username: 'Divya Reddy', time: '03:00:200' },
+  { username: 'Suresh Menon', time: '01:40:550' },
+  { username: 'Anita Chawla', time: '02:10:650' },
+  { username: 'Raj Gupta', time: '00:45:950' }
+];
+
+const initialState: LeaderboardState = {
+  scores: dummyData.sort((a, b) => {
+    const [aMin, aSec, aMs] = a.time.split(':').map(Number);
+    const [bMin, bSec, bMs] = b.time.split(':').map(Number);
+    return aMin - bMin || aSec - bSec || aMs - bMs;
+  }),
+  mostRecentEntry: dummyData.length > 0 ? dummyData[0] : null, // Initialize with the first entry in dummyData
+};
+
+const leaderboardSlice = createSlice({
+  name: 'leaderboard',
+  initialState,
+  reducers: {
+    addScore: (state, action: PayloadAction<Score>) => {
+      state.scores.push(action.payload);
+      state.scores.sort((a, b) => {
+        const [aMin, aSec, aMs] = a.time.split(':').map(Number);
+        const [bMin, bSec, bMs] = b.time.split(':').map(Number);
+        return aMin - bMin || aSec - bSec || aMs - bMs;
+      });
+      state.mostRecentEntry = action.payload;
+    },
+  },
+});
+
+export const { addScore } = leaderboardSlice.actions;
+export default leaderboardSlice.reducer;
